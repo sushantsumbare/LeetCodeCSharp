@@ -1,0 +1,33 @@
+//Approach with store all elements in dictionary with their frequency
+//All Frequencies which are even will be taken as sum of their frequencies towards result
+//All Frequencies which are odd only one will be taken as count towards result
+//Need to subtract count of odd frequency elements as they cannot be used to form palindrome
+//Edge Case if there is no odd frequency element then do not add extra 1 at the end
+//Cause we need to take only one 1 out of all odds but if no odd exists then we do not 
+//have to take 1 towards result
+//O(n) Time Complexity
+//O(n) Space Complexity
+
+public class Solution {
+    public int LongestPalindrome(string s) {
+        
+        Dictionary<char, int> dctnCharFrequency = new Dictionary<char, int>();
+        
+        for(int i = 0; i < s.Length; i++)
+        {
+            if(dctnCharFrequency.ContainsKey(s[i]))
+                dctnCharFrequency[s[i]] = dctnCharFrequency[s[i]] + 1;
+            else
+                dctnCharFrequency.Add(s[i], 1);
+        }
+        
+        var sumFrequencyEven = dctnCharFrequency.Where(x => x.Value % 2 == 0).Select(y => y.Value).Sum();
+        var sumFrequencyOdd = dctnCharFrequency.Where(x => x.Value % 2 != 0).Select(y => y.Value).Sum();
+        var countFrequencyOdd = dctnCharFrequency.Where(x => x.Value % 2 != 0).Select(y => y.Value).Count();
+        
+        if(countFrequencyOdd == 0)
+            return sumFrequencyEven + sumFrequencyOdd - countFrequencyOdd;
+        else
+            return sumFrequencyEven + sumFrequencyOdd - countFrequencyOdd + 1;
+    }
+}
