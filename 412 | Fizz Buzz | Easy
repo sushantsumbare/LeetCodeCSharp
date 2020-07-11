@@ -1,0 +1,33 @@
+//Approach with iterating through all elements from 1 to n
+//and as per conditions add a string
+//O(n) Time Complexity for iterating through all input elements
+//O(n) Space Complexity for storing all input elements in a formatted string
+
+public class Solution {
+    public IList<string> FizzBuzz(int n) {
+        
+        List<string> result = new List<string>();
+        
+        for(int i = 1; i <= n; i++)
+        {
+            if(i % 3 == 0 && i % 5 == 0)
+            {
+                result.Add("FizzBuzz");
+            }
+            else if(i % 3 == 0)
+            {
+                result.Add("Fizz");
+            }
+            else if(i % 5 == 0)
+            {
+                result.Add("Buzz");
+            }
+            else
+            {
+                result.Add(i.ToString());
+            }
+        }
+        
+        return result.ToArray();
+    }
+}
