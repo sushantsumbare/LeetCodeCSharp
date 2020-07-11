@@ -1,0 +1,19 @@
+//Approach with check while it is divisible by 3 keep on dividing by 3
+//finally check if the result is 1 then it is power of 3 else it is not
+//O(logn) with base as 3 Time Complexity
+//O(1) Space Complexity
+
+public class Solution {
+    public bool IsPowerOfThree(int n) {
+        
+        if(n < 1)
+            return false;
+        
+        while(n % 3 == 0)
+        {
+            n/=3;
+        }
+        
+        return n == 1;
+    }
+}
