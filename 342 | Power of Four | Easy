@@ -1,0 +1,19 @@
+//Approach with check while it is divisible by 4 keep on dividing by 4
+//finally check if the result is 1 then it is power of 4 else it is not
+//O(logn) with base as 4 Time Complexity
+//O(1) Space Complexity
+
+public class Solution {
+    public bool IsPowerOfFour(int num) {
+        
+        if(num < 1)
+            return false;
+        
+        while(num % 4 == 0)
+        {
+            num /= 4;
+        }
+        
+        return num == 1;
+    }
+}
