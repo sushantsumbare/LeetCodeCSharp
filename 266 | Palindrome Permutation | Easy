@@ -1,0 +1,31 @@
+//Approach with to form a palindrome there should not be more than one odd frequency elements
+//in a string
+//O(n) Time Complexity
+//O(1) Space Complexity as there are fixed number of 26 characters
+
+public class Solution {
+    public bool CanPermutePalindrome(string s) {
+        
+        if(s.Length == 1)
+            return true;
+        
+        //there should not be more than one odd frequency element
+        
+        Dictionary<char, int> dctnCharFrequency = new Dictionary<char, int>();
+        
+        for(int i = 0; i < s.Length; i++)
+        {
+            if(dctnCharFrequency.ContainsKey(s[i]))
+                dctnCharFrequency[s[i]] = dctnCharFrequency[s[i]] + 1;
+            else
+                dctnCharFrequency.Add(s[i], 1);
+        }
+        
+        var countFrequencyOdd = dctnCharFrequency.Where(x => x.Value % 2 != 0).Select(y => y.Value).Count();
+        
+        if(countFrequencyOdd > 1)
+            return false;
+        else
+            return true;
+    }
+}
