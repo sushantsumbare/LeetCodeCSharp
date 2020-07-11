@@ -1,0 +1,30 @@
+//Approach with storing super set string as a dictionary with frequency of chars
+//Once we have Dictionary of chars we check sub set list if it exists in dictionary
+//If exists then we decrement the frequency to mark that as visited
+//Now only one char will not be found or will have its value or frequency as 1
+//We return a key where value in dictionary is 1
+//O(n) Time Complexity
+//O(1) Space complexity as there are only 26 letters so size of dictionary will be max 26
+
+public class Solution {
+    public char FindTheDifference(string s, string t) {
+        
+        Dictionary<char, int> dctnT = new Dictionary<char, int>();
+        
+        for(int i = 0; i < t.Length; i++)
+        {
+            if(dctnT.ContainsKey(t[i]))
+                dctnT[t[i]] = dctnT[t[i]] + 1;
+            else
+                dctnT.Add(t[i] , 1);
+        }
+        
+        for(int i = 0; i < s.Length; i++)
+        {
+            if(dctnT.ContainsKey(s[i]))
+                dctnT[s[i]] = dctnT[s[i]] - 1;
+        }
+        
+        return dctnT.Where(x => x.Value == 1).Select(y => y.Key).FirstOrDefault();
+    }
+}
