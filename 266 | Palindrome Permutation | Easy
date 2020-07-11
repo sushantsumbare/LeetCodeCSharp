@@ -1,5 +1,5 @@
 //Approach with to form a palindrome there should not be more than one odd frequency elements
-//in a string
+//in a string only max one odd frequency element is allowed
 //O(n) Time Complexity
 //O(1) Space Complexity as there are fixed number of 26 characters
 
@@ -8,8 +8,6 @@ public class Solution {
         
         if(s.Length == 1)
             return true;
-        
-        //there should not be more than one odd frequency element
         
         Dictionary<char, int> dctnCharFrequency = new Dictionary<char, int>();
         
