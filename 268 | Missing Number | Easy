@@ -1,0 +1,18 @@
+//Approach with Summation of n math formula
+//summation n = n * (n + 1) / 2
+//O(n) Time complexity
+//O(1) Space complexity
+public class Solution {
+    public int MissingNumber(int[] nums) {
+        
+        int count = nums.Length;
+        int sum = (count * (count + 1)) / 2;
+        
+        for(int i = 0; i < nums.Length; i++)
+        {
+            sum = sum - nums[i];
+        }
+        
+        return sum;
+    }
+}
