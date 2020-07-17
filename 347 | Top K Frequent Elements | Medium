@@ -1,0 +1,42 @@
+//Approach with dictionary to store items and their frequency
+//Sort by descending value or frequency
+//Iterate through sorted items for k times
+//read key each time store it in a list and return that list as an array
+//O(n) Time Complexity
+//O(n) Space Complexity
+
+public class Solution {
+    public int[] TopKFrequent(int[] nums, int k) {
+        
+        Dictionary<int, int> itemFrequency = new Dictionary<int ,int>();
+        
+        for(int i = 0; i < nums.Length; i++)
+        {
+            if(itemFrequency.ContainsKey(nums[i]))
+                itemFrequency[nums[i]] = itemFrequency[nums[i]] + 1;
+            else
+                itemFrequency.Add(nums[i], 1);
+        }
+        
+        var sortedItemFrequency = itemFrequency.OrderByDescending(x => x.Value);
+        
+        int counter = 0;
+        List<int> result = new List<int>();
+        
+        foreach(var item in sortedItemFrequency)
+        {
+            if(counter < k)
+            {
+                result.Add(item.Key);
+            }
+            else
+            {
+                break;
+            }
+         
+            counter++;
+        }
+        
+        return result.ToArray();
+    }
+}
