@@ -1,0 +1,41 @@
+//Approach with dictionary to maintain char and its frequency
+//Then sort all items by descending order of their frequency
+//Iterate through sorted dictionary and add current character as a key into a list of chars
+//Convert list to array and create a string from it and return
+//O(n) Time Complexity
+//O(1) Space Complexity
+
+public class Solution {
+    public string FrequencySort(string s) {
+        
+        char[] charArrayS = s.ToCharArray();
+        
+        Dictionary<char, int> itemFrequency = new Dictionary<char, int>();
+        
+        for(int i = 0; i < charArrayS.Length; i++)
+        {
+            if(itemFrequency.ContainsKey(charArrayS[i]))
+                itemFrequency[charArrayS[i]] = itemFrequency[charArrayS[i]] + 1;
+            else
+                itemFrequency.Add(charArrayS[i], 1);
+        }
+        
+        var sortedItemFrequency = itemFrequency.OrderByDescending(x => x.Value);
+        
+        List<char> result = new List<char>();
+        
+        foreach(var item in sortedItemFrequency)
+        {
+            int counter = 0;
+            int allItemsCount = item.Value;
+            
+            while(counter < allItemsCount)
+            {
+                result.Add(item.Key);
+                counter++;
+            }
+        }
+        
+        return new string(result.ToArray());
+    }
+}
