@@ -1,0 +1,68 @@
+//Approach with DFS and backtracking
+//Iterate through board when character found matching to first character of word
+//Start DFS pass current index of the word to be searched 
+//If DFS returns true means word found else finally return false
+//In DFS if outside boundary, already visited character for current recursion found or
+//Current character not matching with the current index of the word return false stop DFS
+//If length of the word - 1 matches with the current index means word found return true
+//Store current character in temp variable replace current char with some special character '#'
+//Start DFS in 4 directions and if any of the DFS in any direction returns true means word found 
+//Return true
+//Finally if in all 4 DFS directions returns false meaning word not found
+//Need to restore the board to original state so restore character from temp variable 
+//Into original position and return false to end current DFS or recursion
+//O(n 4 l) n is the no of cells in board l is the length of the word
+//O(l) length of the word
+
+public class Solution {
+    public bool Exist(char[][] board, string word) {
+        
+    int rows = board.Length;
+    int cols = board[0].Length;
+    
+    for(int i = 0; i < rows; i++)
+    {
+        for(int j = 0; j < cols; j++)
+        {
+            if(board[i][j] == word[0] && dfs(board, i , j, rows, cols, word, 0))
+                return true;
+        }
+    }
+    
+    return false;
+
+    }
+    
+    public bool dfs(char[][] input, int row, int col, int rows, int cols, string target, int index)
+    {
+        if(!IsValidBoundary(row, col, rows, cols) || input[row][col] != target[index] || input[row][col] == '#')
+            return false;
+    
+        if(target.Length - 1 == index)
+            return true;
+        
+        char c = input[row][col];
+        input[row][col] = '#';
+        
+        index++;
+        
+        if(dfs(input, row - 1, col, rows, cols, target, index) ||
+            dfs(input, row + 1, col, rows, cols, target, index) ||
+            dfs(input, row, col - 1, rows, cols, target, index) ||
+            dfs(input, row, col + 1, rows, cols, target, index))
+            return true;
+        
+        input[row][col] = c;
+        
+        return false;
+    }   
+
+    public bool IsValidBoundary(int row, int col, int rows, int cols)
+    {   
+        if(row < 0 || row > rows - 1 || col < 0 || col > cols - 1)
+            return false;
+        else
+            return true;
+    }
+
+}
