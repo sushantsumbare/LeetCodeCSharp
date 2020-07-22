@@ -1,0 +1,64 @@
+//Approach similar to level order traversal with one bol flag for direction
+//as per direction reverse current list
+//O(n) Time Complexity
+//O(n) Space Complexity
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public IList<IList<int>> ZigzagLevelOrder(TreeNode root) {
+        
+        List<int[]> result = new List<int[]>();
+        List<int> current = new List<int>();
+        
+        if(root == null)
+            return result.ToArray();
+        
+        Queue<TreeNode> queue = new Queue<TreeNode>();
+        queue.Enqueue(root);
+        
+        bool left_to_right = true;
+        while(queue.Count > 0)
+        {
+            int size = queue.Count;
+            int counter = 0;
+            
+            while(counter < size)
+            {
+                TreeNode node = queue.Dequeue();
+                current.Add(node.val);
+                
+                if(node.left != null)
+                    queue.Enqueue(node.left);
+            
+                if(node.right != null)
+                    queue.Enqueue(node.right);
+                
+                counter++;
+            }
+            
+            if(left_to_right)
+            {
+                left_to_right = false;
+                result.Add(current.ToArray());
+            }
+            else
+            {
+                left_to_right = true;
+                current.Reverse();
+                result.Add(current.ToArray());
+            }
+                
+            current = new List<int>();
+        }
+        
+        return result.ToArray();
+    }
+}
